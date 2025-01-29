@@ -1,85 +1,31 @@
+# Use the latest 2.1 version of CircleCI pipeline process engine.
+# See: https://circleci.com/docs/configuration-reference
 version: 2.1
+
+# Define a job to be invoked later in a workflow.
+# See: https://circleci.com/docs/jobs-steps/#jobs-overview & https://circleci.com/docs/configuration-reference/#jobs
 jobs:
-
-  lint:
+  say-hello:
+    # Specify the execution environment. You can specify an image from Docker Hub or use one of our convenience images from CircleCI's Developer Hub.
+    # See: https://circleci.com/docs/executor-intro/ & https://circleci.com/docs/configuration-reference/#executor-job
     docker:
-      - image: cimg/node:20.17.0
+      # Specify the version you desire here
+      # See: https://circleci.com/developer/images/image/cimg/base
+      - image: cimg/base:current
 
-    working_directory: ~/repo
-
+    # Add steps to the job
+    # See: https://circleci.com/docs/jobs-steps/#steps-overview & https://circleci.com/docs/configuration-reference/#steps
     steps:
+      # Checkout the code as the first step.
       - checkout
-
-      - restore_cache:
-          key: node_modules-{{ checksum "package-lock.json" }}
-
-      - run: test -d node_modules || npm i
-
-      - save_cache:
-          key: node_modules-{{ checksum "package-lock.json" }}
-          paths:
-            - node_modules
-
-      # run tests!
       - run:
-          command: npm run tslint && npm run lint
+          name: "Say hello"
+          command: "echo Hello, World!"
 
-  unit:
-    docker:
-      - image: cimg/node:20.17.0
-
-    working_directory: ~/repo
-
-    steps:
-      - checkout
-
-      - restore_cache:
-          key: node_modules-{{ checksum "package-lock.json" }}
-
-      - run: test -d node_modules || npm i
-
-      - save_cache:
-          key: node_modules-{{ checksum "package-lock.json" }}
-          paths:
-            - node_modules
-
-      # run tests!
-      - run:
-          command: npm run unit
-
-
-  integration:
-    docker:
-      - image: cimg/node:20.17.0
-
-    environment:
-      RETRY: "1"
-
-    working_directory: ~/repo
-
-    resource_class: large
-
-    steps:
-      - checkout
-
-      - restore_cache:
-          key: node_modules-{{ checksum "package-lock.json" }}
-
-      - run: test -d node_modules || npm i
-
-      - save_cache:
-          key: node_modules-{{ checksum "package-lock.json" }}
-          paths:
-            - node_modules
-
-      # run tests!
-      - run:
-          command: npm run jest || npm run jest || npm run jest || npm run jest
-
-# Orchestrate our job run sequence
+# Orchestrate jobs using workflows
+# See: https://circleci.com/docs/workflows/ & https://circleci.com/docs/configuration-reference/#workflows
 workflows:
-  build_and_test:
+  say-hello-workflow: # This is the name of the workflow, feel free to change it to better match your workflow.
+    # Inside the workflow, you define the jobs you want to run.
     jobs:
-      - lint
-      - unit
-      - integration
+      - say-hello
