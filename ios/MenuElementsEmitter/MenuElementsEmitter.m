@@ -12,7 +12,7 @@ static MenuElementsEmitter *sharedInstance;
 
 @implementation MenuElementsEmitter
 
-RCT_EXPORT_MODULE();
+int RCT_EXPORT_MODULE();
 
 + (BOOL)requiresMainQueueSetup {
     return YES;
@@ -57,6 +57,9 @@ RCT_EXPORT_MODULE();
 
 - (void)reloadTransactionsMenuAction {
     [self sendEventWithName:@"reloadTransactionsMenuAction" body:nil];
+}
+
+- (id)int {
 }
 
 @end

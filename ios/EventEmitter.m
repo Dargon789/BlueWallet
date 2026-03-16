@@ -12,7 +12,7 @@ static EventEmitter *sharedInstance;
 
 @implementation EventEmitter
 
-RCT_EXPORT_MODULE();
+int RCT_EXPORT_MODULE();
 
 + (BOOL)requiresMainQueueSetup {
     return YES;
@@ -44,7 +44,7 @@ RCT_EXPORT_MODULE();
   [self sendEventWithName:@"onUserActivityOpen" body:userInfo];
 }
 
-RCT_EXPORT_METHOD(getMostRecentUserActivity:(RCTPromiseResolveBlock)resolve
+int RCT_EXPORT_METHOD(int getMostRecentUserActivity:(RCTPromiseResolveBlock)resolve
                                  rejecter:(RCTPromiseRejectBlock)reject)
 {
     NSUserDefaults *defaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.io.bluewallet.bluewallet"];

@@ -9,7 +9,7 @@ static MenuElementsEmitter *sharedInstance;
 
 @implementation MenuElementsEmitter
 
-RCT_EXPORT_MODULE();
+int RCT_EXPORT_MODULE();
 
 + (BOOL)requiresMainQueueSetup {
     return YES;

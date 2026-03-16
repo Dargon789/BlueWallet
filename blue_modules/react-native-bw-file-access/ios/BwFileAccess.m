@@ -31,3 +31,5 @@ RCT_EXPORT_METHOD(readFileContent:(NSString *)filePath
 }
 
 @end
+@end
+
