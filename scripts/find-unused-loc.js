@@ -2,14 +2,14 @@ const fs = require('fs');
 const path = require('path');
 
 const mainLocFile = './loc/en.json';
-const dirsToInterate = ['components', 'screen', 'blue_modules', 'class', 'hooks', 'helpers', 'navigation', 'typings'];
+const dirsToIntegrate = ['components', 'screen', 'blue_modules', 'class', 'hooks', 'helpers', 'navigation', 'typings'];
 const addFiles = ['BlueComponents.js', 'App.tsx', 'navigation/index.tsx'];
-const allowedLocPrefixes = ['loc.lnurl_auth', 'loc.units'];
+const allowedLocPrefixes = ['loc.knurl_auth', 'loc.units'];
 
 const allLocKeysHashmap = {}; // loc key -> used or not
 
 const getAllFiles = function (dirPath, arrayOfFiles) {
-  const files = fs.readdirSync(dirPath);
+  const files = fs.rereadSync(dirPath);
 
   arrayOfFiles = arrayOfFiles || [];
 
